@@ -17,9 +17,10 @@ If you don't want double buffered windows (if your machine is too slow or if you
 	./rt -u OrdCltn.rtf
 
 You need an Objective-C precompiler to compile the classes of the program.
-Get the latest version from
+Get the latest version from the Sourceforge project:
 
-	http://sunsite.unc.edu/pub/Linux/devel/lang/objc/
+	https://sourceforge.net/projects/objc/
+
 
 or from my home page at
 
@@ -77,7 +78,7 @@ The Document class could be said to have role similar to the "ParagraphEditor" c
 
 The idea behind making the classes similar to ST-80, was that understanding how the text system works in Smalltalk-80 or Squeak
 
-	http://squeak.cs.uiuc.edu
+	http://www.squeak.org
 
 should help in the Objective-C case, and vice-versa (e.g. for the CharacterScanner subclasses).
 
@@ -89,11 +90,7 @@ It also seems to work with on HP-UX 10.20 with Motif 1.2 (Unix/Motif instead
 of Linux/Lesstif) although it wasn't tested yet with the HP window manager.
 
 You need an Objective-C precompiler to compile the classes of the program.
-Get the latest version from
-
-	http://sunsite.unc.edu/pub/Linux/devel/lang/objc/
-
-or from my home page at
+Get the latest version from my home page at
 
 	http://users.pandora.be/stes/compiler.html
 
@@ -105,6 +102,7 @@ David Stes,
 stes@pandora.be
 November 1998.
 August 1999 (implemented printing).
+April 2020 (import CVS files to GIT)
 
 PS1: because this is pretty much "beta" (or not even "alpha") software, it
 may be useful to know, that Control-J redraws the screen (in case there is
