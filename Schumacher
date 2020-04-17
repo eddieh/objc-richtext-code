@@ -1,0 +1,21 @@
+*richtext.blinkrate: 250
+*richtext.autoscroll: 50
+*richtext.background: white
+*richtext.foreground: black
+*richtext.swissbold:-schumacher-clean-bold-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.swissplain:-schumacher-clean-medium-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.swissitalic:-schumacher-clean-medium-i-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.swissbolditalic:-schumacher-clean-bold-i-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.modernbold:-schumacher-clean-bold-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.modernplain:-schumacher-clean-medium-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.modernitalic:-schumacher-clean-medium-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.modernbolditalic:-schumacher-clean-bold-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.romanbold:-schumacher-clean-bold-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.romanplain:-schumacher-clean-medium-r-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.romanitalic:-schumacher-clean-medium-i-normal-*-*-*-*-*-*-*-iso8859-*
+*richtext.romanbolditalic:-schumacher-clean-bold-i-normal-*-*-*-*-*-*-*-iso8859-*
+*multiClickTime: 500
+*menubar.marginHeight: 1
+*text.selectionArrayCount: 3
+*fontList:-schumacher-clean-bold-r-normal-*-12-*-*-*-*-*-iso8859-*
+

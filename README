@@ -1,0 +1,120 @@
+
+Richtext (RTF) editor for Linux/Lesstif
+---------------------------------------
+
+This is a (beta/alpha version) of a simple editor that supports a few Microsoft RTF keywords.
+
+Compile "rt" by running "xmkmf" and then "make".
+
+You may have to set the MOTIFDIR variable in the Makefile (for Lesstif headers).
+
+After compiling the program, you can open a sample RTF document as follows :
+
+	./rt OrdCltn.rtf
+
+If you don't want double buffered windows (if your machine is too slow or if you don't have enough memory), use the -u "unbuffered" option :
+
+	./rt -u OrdCltn.rtf
+
+You need an Objective-C precompiler to compile the classes of the program.
+Get the latest version from
+
+	http://sunsite.unc.edu/pub/Linux/devel/lang/objc/
+
+or from my home page at
+
+	http://users.pandora.be/stes/compiler.html
+
+Fonts
+-----
+
+The compiled in resources (see main.m) use the Adobe fonts Courier, Helvetica and Times-Roman for RTF Modern, Swiss and Roman.
+
+If you want to use other fonts, use a resource file.
+
+For example, the file 'Lucida' contains resources for using B&H Lucida fonts.
+
+Install this file as follows :
+
+	XAPPLRESDIR=$HOME/app-defaults
+        export XAPPLRESDIR
+
+	cp Lucida $XAPPLRESDIR/Richtext
+
+With the 'Schumacher' resources, "rt" can be used on the free Microimages MI/X PC X server.
+
+	cp Schumacher $XAPPLRESDIR/Richtext
+
+If you have other font settings that work, feel free to mail them to me.
+
+Printing
+--------
+
+For printing, the RTF file is converted to PostScript.  This is controlled by a set of AFM (font metrics) files, located in the afm subdirectory.  Those files were downloaded from the ftp.adobe.com/pub/adobe/type/mac ftp site, and then recoded (with recode mac..latin1) towards newline terminated files.
+
+The program searches for the afm subdirectory in all of the directories listed in the RTFPATH (see below).
+
+If you set,
+
+	RTFPATH=.:$HOME:/usr/local;export RTFPATH
+
+then the program will first look for afm files in ./afm/, and if not found in $HOME/afm/ and so on.  The default is to look only in '.', the current directory.
+
+Features
+--------
+
+The editor supports only a small number of RTF keywords; just those that are needed by the program, such as \b and \i for setting boldface and italic, or \fs for setting fontsize and so on.  
+
+Other keywords, such as for headers and footers, are ignored.  There's no tables, no pagination, no frames, no shading nor bullets, there's no support for any of the more sophisticated RTF commands.  Section information is lost: a document is considered to be just a list of text paragraphs.  
+
+The editor is written in Objective-C and includes both a platform-independent Richtext Objective-C class, and X window-system dependent text-rendering classes.
+
+The text classes are modeled after Smalltalk-80 : the RunArray class and TextAttribute classes work in the same way as their counterparts in Smalltalk-80.  The Richtext class is a class for reading and writing RTF.  Those classes are system independent.
+
+The CharacterScanner, CompositionScanner, DisplayScanner classes are also similar to the Smalltalk-80 classes , and are used for rendering the platform independent Richtext instances, to an X11 window, doing the necessary composition (line wrapping).  The scanner classes are X specific since they use the X11 "XFontStruct*" fonts for displaying text.
+
+The Document class could be said to have role similar to the "ParagraphEditor" class in Smalltalk (a Controller subclass).  The Document class is doing document management, because the program supports editing multiple documents; for each window, there's a Document instance.  In MVC terms, you could say the model is Richtext, the controller is Document and the view is RtfWidget (an X11 widget).
+
+The idea behind making the classes similar to ST-80, was that understanding how the text system works in Smalltalk-80 or Squeak
+
+	http://squeak.cs.uiuc.edu
+
+should help in the Objective-C case, and vice-versa (e.g. for the CharacterScanner subclasses).
+
+See the DESIGN file for some more notes and information.
+
+The program was developed with Lesstif 0.86 and objc (version 1.10.10).  
+
+It also seems to work with on HP-UX 10.20 with Motif 1.2 (Unix/Motif instead
+of Linux/Lesstif) although it wasn't tested yet with the HP window manager.
+
+You need an Objective-C precompiler to compile the classes of the program.
+Get the latest version from
+
+	http://sunsite.unc.edu/pub/Linux/devel/lang/objc/
+
+or from my home page at
+
+	http://users.pandora.be/stes/compiler.html
+
+Version 1.10.10 or higher of Object Pak (in particular of the Text and RunArray
+class of Object Pak) is recommended; it may not work with earlier versions,
+or may work slower.  Object Pak 1.10.10 also comes with .rtf documentation, so this editor can be used as previewer.
+
+David Stes,
+stes@pandora.be
+November 1998.
+August 1999 (implemented printing).
+
+PS1: because this is pretty much "beta" (or not even "alpha") software, it
+may be useful to know, that Control-J redraws the screen (in case there is
+still a display update problem).
+
+PS2: you can set the environment variable RTFPATH,
+
+	setenv RTFPATH ".:$OBJCDIR/rtf/objcrt:$OBJCDIR/rtf/objpak"
+
+and rt will search those directories for files that are specified on the command line; this is useful for opening class documentation.
+
+Instead of "man RunArray" you can then do "rt RunArray" from any place.
+

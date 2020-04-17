@@ -1,0 +1,131 @@
+
+%{
+/*
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <string.h>
+#include <stdlib.h>
+#include <Object.h>
+#include <ocstring.h>
+#include "lexafm.h"
+
+#define YY_NEVER_INTERACTIVE 1
+
+union lexafm lexafmlval;
+
+%}
+
+%x LINE
+
+%option yylineno
+
+%%
+
+[ \t\n\r]+ { ; }
+"Ascender" { return kAscender; }
+"Axes" { return kAxes; }
+"AxisLabel" { return kAxisLabel; }
+"AxisType" { return kAxisType; }
+"BlendAxisTypes" { return kBlendAxisTypes; }
+"BlendDesignMap" { return kBlendDesignMap; }
+"BlendDesignPositions" { return kBlendDesignPositions; }
+"B" { return kB; }
+"CapHeight" { return kCapHeight; }
+"CharWidth" { return kCharWidth; }
+"CharacterSet" { return kCharacterSet; }
+"Characters" { return kCharacters; }
+"Comment" { BEGIN LINE; return kComment; }
+"C" { return kC; }
+"CC" { return kCC; }
+"CH" { return kCH; }
+"Descendents" { return kDescendents; }
+"Descender" { return kDescender; }
+"EncodingScheme" { BEGIN LINE; return kEncodingScheme; }
+"EndAxis" { return kEndAxis; }
+"EndCharMetrics" { return kEndCharMetrics; }
+"EndCompFontMetrics" { return kEndCompFontMetrics; }
+"EndComposites" { return kEndComposites; }
+"EndDescendent" { return kEndDescendent; }
+"EndDirection" { return kEndDirection; }
+"EndFontMetrics" { return kEndFontMetrics; }
+"EndKernData" { return kEndKernData; }
+"EndKernPairs" { return kEndKernPairs; }
+"EndMaster" { return kEndMaster; }
+"EndMasterFontMetrics" { return kEndMasterFontMetrics; }
+"EndTrackKern" { return kEndTrackKern; }
+"EscChar" { return kEscChar; }
+"FamilyName" { BEGIN LINE;return kFamilyName; }
+"FontBBox" { return kFontBBox; }
+"FontName " { BEGIN LINE;return kFontName; }
+"FullName " { BEGIN LINE;return kFullName; }
+"IsBaseFont" { return kIsBaseFont; }
+"IsFixedPitch" { return kIsFixedPitch; }
+"IsFixedV" { return kIsFixedV; }
+"ItalicAngle" { return kItalicAngle; }
+"KP" { return kKP; }
+"KPH" { return kKPH; }
+"KPX" { return kKPX; }
+"KPY" { return kKPY; }
+"L" { return kL; }
+"MappingScheme" { return kMappingScheme; }
+"Masters" { return kMasters; }
+"MetricsSets" { return kMetricsSets; }
+"N" { return kN; }
+"Notice" { BEGIN LINE; return kNotice; }
+"PCC" { return kPCC; }
+"StartAxis" { return kStartAxis; }
+"StartCharMetrics" { return kStartCharMetrics; }
+"StartCompFontMetrics" { return kStartCompFontMetrics; }
+"StartComposites" { return kStartComposites; }
+"StartDescendent" { return kStartDescendent; }
+"StartDirection" { return kStartDirection; }
+"StartFontMetrics" { return kStartFontMetrics; }
+"StartKernData" { return kStartKernData; }
+"StartKernPairs" { return kStartKernPairs; }
+"StartMaster" { return kStartMaster; }
+"StartMasterFontMetrics" { return kStartMasterFontMetrics; }
+"StartTrackKern" { return kStartTrackKern; }
+"TrackKern" { return kTrackKern; }
+"UnderlinePosition" { return kUnderlinePosition; }
+"UnderlineThickness" { return kUnderlineThickness; }
+"VV" { return kVV; }
+"VVector" { return kVVector; }
+"Version" { BEGIN LINE;return kVersion; }
+"W0X" { return kW0X; }
+"W0Y" { return kW0Y; }
+"W0" { return kW0; }
+"W" { return kW; }
+"W1X" { return kW1X; }
+"W1Y" { return kW1Y; }
+"W1" { return kW1; }
+"WX" { return kWX; }
+"WY" { return kWY; }
+"WeightVector" { return kWeightVector; }
+"Weight" { return kWeight; }
+"XHeight" { return kXHeight; } 
+
+";" { return kSemi; }
+"false" { lexafmlval.l = 0;return kBool; }
+"true" { lexafmlval.l = 1;return kBool; }
+<LINE>.* { lexafmlval.i=[String str:yytext]; BEGIN INITIAL; return kString; }
+-?[0-9]+ { lexafmlval.l=atoi(yytext); return kLong; }
+-?[0-9]+\.[0-9]* { lexafmlval.d=atof(yytext); return kDouble; }
+[a-zA-Z\-_0-9]+ { lexafmlval.i=[String str:yytext]; return kString; }
+
+%%
+
+int yywrap() { return 1; }
+

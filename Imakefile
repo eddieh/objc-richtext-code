@@ -1,0 +1,30 @@
+
+LEX = flex
+CC = objc -q -DNDEBUG
+#CC = objc -q -g
+#MOTIFDIR=$(USRLIBDIR)
+MOTIFDIR=/usr/local/LessTif/Motif1.2
+
+.SUFFIXES : .m .lm
+
+.m.o :
+	$(CC) -c -I$(MOTIFDIR)/include $(CFLAGS) $*.m
+
+# because we have 2 lexical analyzers in the same program, use the flex -P
+# prefix option
+
+.lm.o :
+	$(LEX) -P$* $*.lm && $(MV) lex.$*.c $*.m
+	$(CC) -c -I$(MOTIFDIR)/include $(CFLAGS) $*.m
+	$(RM) $*.m
+
+LOCAL_LIBRARIES = -L$(MOTIFDIR)/lib -lXm $(XTOOLLIB) $(XLIB) 
+
+OBJS = plain.o richtext.o panic.o document.o bbox.o\
+ textline.o richfont.o main.o menu.o lexan.o lexafm.o AFM.o\
+ charblk.o state.o style.o fontchange.o rtfwidget.o psfontchange.o\
+ underlined.o boldface.o italic.o fontsizechange.o xfontchange.o\
+ charscanner.o dispscanner.o compscanner.o charblkscanner.o
+
+ComplexProgramTarget(rt)
+

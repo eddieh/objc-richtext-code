@@ -1,0 +1,36 @@
+
+0.1.5   * finish up AFM parsing and PS rendering code, which works now 
+          in such a way that it could be fairly easily extended to e.g. PCL6
+          perhaps (by implementing a PCL6Fontchange attribute object)
+
+0.1.4   * intermediate release (not everything of 0.1.3 is implemented yet)
+
+0.1.3   * add Changes file
+
+        * changed name of program from richtext to rt
+
+	* implemented File->Revert to Saved
+
+	* handle WM_DELETE_WINDOW protocol (for WM close button) 
+
+	* set XtExposeCompressSeries for coalescing expose events
+          (doesnt seem to make any difference to me)
+
+	* fix bug with wrong font properties for newly inserted text
+
+	* fix bug in zapSelection (add method attributesAtBlock: to richtext)
+
+	* implemented File->Print, which converts RTF to PS
+
+          this required addition of a set of AFM files, which I downloaded
+          from:
+
+	    ftp://ftp.adobe.com/pub/adobe/type/mac/all/afmfiles/TypeBasics/
+
+          and recoded to Unix/NL files using GNU recode mac..latin1
+
+	* added lexical analyzer for AFM files.  
+
+          Note: this requires flex because it uses exclusive start states
+          and the -P option (we have now 2 analyzers in the same program)
+          

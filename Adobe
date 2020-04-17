@@ -1,0 +1,21 @@
+*richtext.blinkrate: 250
+*richtext.autoscroll: 50
+*richtext.background: white
+*richtext.foreground: black
+*richtext.swissbold:-adobe-helvetica-bold-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.swissplain:-adobe-helvetica-medium-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.swissitalic:-adobe-helvetica-medium-o-normal-*-*-*-*-*-*-*-*-*
+*richtext.swissbolditalic:-adobe-helvetica-bold-o-normal-*-*-*-*-*-*-*-*-*
+*richtext.modernbold:-adobe-courier-bold-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.modernplain:-adobe-courier-medium-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.modernitalic:-adobe-courier-medium-o-normal-*-*-*-*-*-*-*-*-*
+*richtext.modernbolditalic:-adobe-courier-bold-o-normal-*-*-*-*-*-*-*-*-*
+*richtext.romanbold:-adobe-times-bold-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.romanplain:-adobe-times-medium-r-normal-*-*-*-*-*-*-*-*-*
+*richtext.romanitalic:-adobe-times-medium-i-normal-*-*-*-*-*-*-*-*-*
+*richtext.romanbolditalic:-adobe-times-bold-i-normal-*-*-*-*-*-*-*-*-*
+*multiClickTime: 500
+*menubar.marginHeight: 1
+*text.selectionArrayCount: 3
+*fontList:-adobe-helvetica-bold-r-normal-*-12-*-*-*-*-*-*-*
+

@@ -1,0 +1,635 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fnil Times-Roman;}{\f1\fswiss Helvetica;}{\f2\fmodern Courier;}}\paperw10460\paperh7900\margl40\margr40{\fs24 Portable Object Compiler (c) 1997,98.  All Rights Reserved.}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b\f1\fs56 OrdCltn}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 Inherits from:} Cltn{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li1400
+{\b\f1\fs36 Class Description}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b OrdCltn} (alias {\b OrderedCollection}) instances are ordered collections of objects : you can access, add or remove elements at a specified offset in the array of elements.  {\b OrdCltn} takes care of the memory allocation issues to hold the objects.{\fs16 \
+}{\fs16 \
+}There can be no {\b nil} entries between the first (at offset 0) and last  elements (at {\b size} minus one).  For this reason, all methods that add objects refuse to add {\b nil}'s.  When entries are added or removed, the offsets of the remaining entries change.{\fs16 \
+}{\fs16 \
+}Offsets into collections are traditionally unsigned integers.  Methods that return an offset, e.g., {\f2 offsetOf:} and {\f2 lastOffset} return a value of (unsigned)-1 to indicate that an object has not been found.{\fs16 \
+}{\fs16 \
+}There are many methods for adding or inserting members into a collection.  Although members may be added at any point in the collection, they are generally added at the end using {\f2 add:}.{\fs16 \
+}{\fs16 \
+}A member may be searched for using either the {\f2 find:} or {\f2 findMatching:} method.  In the first case, the member in the collection must be an exact match.  In the second case, the member must match in the sense of the {\f2 isEqual:} method.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li1400
+{\b\f1\fs36 Method types}{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Creation}	- new\
+	- new:\
+	- with:\
+	- with:with:\
+	- add:\
+	- copy\
+	- deepCopy\
+	- emptyYourself\
+	- freeContents\
+	- free\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Interrogation}	- size\
+	- isEmpty\
+	- lastOffset\
+	- eachElement\
+	- firstElement\
+	- lastElement\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Comparing}	- isEqual:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Adding}	- add:\
+	- addFirst:\
+	- addLast:\
+	- addIfAbsent:\
+	- addIfAbsentMatching:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Insertion}	- at:insert:\
+	- insert:after:\
+	- insert:before:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Relative Accessing}	- after:\
+	- before:\
+	- at:\
+	- at:put:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Removing}	- removeFirst\
+	- removeLast\
+	- removeAt:\
+	- removeAtIndex:\
+	- remove:\
+	- remove:ifAbsent:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Testing Contents}	- includesAllOf:\
+	- includesAnyOf:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Adding and Removing Contents}	- addAll:\
+	- addContentsOf:\
+	- addContentsTo:\
+	- removeAll:\
+	- removeContentsFrom:\
+	- removeContentsOf:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Combining}	- intersection:\
+	- union:\
+	- difference:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Converting}	- asSet\
+	- asOrdCltn\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Using Blocks}	- detect:\
+	- detect:ifNone:\
+	- select:\
+	- reject:\
+	- collect:\
+	- count:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Making elements perform}	- elementsPerform:\
+	- elementsPerform:with:\
+	- elementsPerform:with:with:\
+	- elementsPerform:with:with:with:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Do Blocks}	- do:\
+	- do:until:\
+	- reverseDo:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Locating}	- find:\
+	- findMatching:\
+	- includes:\
+	- findSTR:\
+	- contains:\
+	- offsetOf:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Printing}	- printOn:\
+\pard
+{\fs16 \
+}{\fs16 \
+}\pard\li6000\fi-3800\tx6000
+{\b Archiving}	- fileOutOn:\
+	- fileInFrom:\
+\pard
+{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li1400
+{\b\f1\fs36 Methods}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b\f1 new}\
+\pard\li2500
++{\b new}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns a new empty collection.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 new:}\
+\pard\li2500
++{\b new}:(unsigned){\i n}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns a new empty collection, which can hold at least {\i n} elements without having to expand.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 copy}\
+\pard\li2500
+-{\b copy}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns a new copy of the collection.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 deepCopy}\
+\pard\li2500
+-{\b deepCopy}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns a new copy of the collection.  The members in the new collection are deep copies of the members in the original collection.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 emptyYourself}\
+\pard\li2500
+-{\b emptyYourself}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes all the members of the collection (without freeing them).  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 freeContents}\
+\pard\li2500
+-{\b freeContents}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes and frees all the members of the receiver, but doesn't free the receiver itself.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 free}\
+\pard\li2500
+-{\b free}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Frees the collection, but not its contents.  Returns {\b nil}.  Do :{\fs16 \
+}{\fs16 \
+}\pard\li2800
+{\f2\fs24 aCltn = [[aCltn freeContents] free];\
+}{\fs16 \
+}\pard\li2200
+if you want to free the collection and its contents.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 size}\
+\pard\li2500
+- (unsigned){\b size}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the number of objects in the collection.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 isEmpty}\
+\pard\li2500
+- (BOOL){\b isEmpty}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Whether the number of objects in the collection is equal to zero.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 lastOffset}\
+\pard\li2500
+- (unsigned){\b lastOffset}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the offset of the last element.  If there are no elements it returns (unsigned)-1.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 eachElement}\
+\pard\li2500
+-{\b eachElement}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns a sequence of the elements in the collection.{\fs16 \
+}{\fs16 \
+}\pard\li2800
+{\f2\fs24 aSeq = [aCltn eachElement];\
+}{\f2\fs24 while ((anElement = [aSeq next])) \{\
+}{\f2\fs24     /* do something */\
+}{\f2\fs24 \}\
+}{\f2\fs24 aSeq = [aSeq free];\
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b\f1 firstElement}\
+\pard\li2500
+-{\b firstElement}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the first element in the collection.  If there are no elements, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 lastElement}\
+\pard\li2500
+-{\b lastElement}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the last element in the collection.  If there are no elements, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 isEqual:}\
+\pard\li2500
+- (BOOL){\b isEqual}:{\i aCltn}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns YES if {\i aCltn} is a collection, and if each member of its contents responds affirmatively to the message {\f2 isEqual:} when compared to the corresponding member of the receiver's contents.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 add:}\
+\pard\li2500
+-{\b add}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Adds {\i anObject} to the collection as the last element and returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 addFirst:}\
+\pard\li2500
+-{\b addFirst}:{\i newObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Adds {\i newObject} as the first (zero-th) element of the collection.  Returns the receiver.  Any elements at this offset or higher are relocated to the next higher offset to make room.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 addLast:}\
+\pard\li2500
+-{\b addLast}:{\i newObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Identical to the {\f2 add:} method.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 addIfAbsent:}\
+\pard\li2500
+-{\b addIfAbsent}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Adds {\i anObject} to the collection only if the collection does not have that same object, i.e., one that is pointer equal.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 addIfAbsentMatching:}\
+\pard\li2500
+-{\b addIfAbsentMatching}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Adds {\i anObject} to the collection only if the collection does not have a matching object, i.e., one that is {\f2 isEqual:}.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 at:insert:}\
+\pard\li2500
+-{\b at}:(unsigned ){\i anOffset}{\b insert}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Inserts {\i anObject} at offset {\i anOffset} and returns the receiver.  Any elements at this offset or higher are relocated to the next higher offet to make room.{\fs16 \
+}{\fs16 \
+}If {\i anOffset} is greater than the size of the collection, an {\i Offset out of bounds.} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 insert:after:}\
+\pard\li2500
+-{\b insert}:{\i newObject}{\b after}:{\i oldObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Searches for {\i oldObject} in the collection, and inserts {\i newObject} after {\i oldObject}, moving later elements if necessary to make room.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}If {\i oldObject} is not in the collection, a {\i Could not find object.} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 insert:before:}\
+\pard\li2500
+-{\b insert}:{\i newObject}{\b before}:{\i oldObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+First searches for {\i oldObject} in the collection, and inserts the {\i newObject} before {\i oldObject}.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}If {\i oldObject} is not in the collection, a {\i Could not find object} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 after:}\
+\pard\li2500
+-{\b after}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Searches for {\i anObject} in the collection and, if found, returns the next object.  If {\i anObject} is the last element in the array, returns {\b nil}. {\fs16 \
+}{\fs16 \
+}If {\i anObject} is not in the collection, a {\i Could not find object} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 before:}\
+\pard\li2500
+-{\b before}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Searches for {\i anObject} in the collection and, if found, returns the object before it.  If {\i anObject} is the first element in the array, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}If {\i anObject} is not in the collection, a {\i Could not find object} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 at:}\
+\pard\li2500
+-{\b at}:(unsigned ){\i anOffset}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the object at {\i anOffset}.  The first object is at offset 0 and the last object is at {\f2 size} minus one.{\fs16 \
+}{\fs16 \
+}If {\i offset} is greater than the last offset in the collection, a {\i Index out of bounds} exception is raised.  The default handler aborts the process.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 at:put:}\
+\pard\li2500
+-{\b at}:(unsigned ){\i anOffset}{\b put}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Replaces the object at {\i anOffset} with {\i anObject} and returns the old member at {\i anOffset}.  Generates an error if {\i anOffset} is greater than the size of the collection.  Returns {\b nil} if {\i anObject} is {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 removeFirst}\
+\pard\li2500
+-{\b removeFirst}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes the first element.  Returns that element or {\b nil} if there are no elements.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 removeLast}\
+\pard\li2500
+-{\b removeLast}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes the last element.  Returns that element or {\b nil} if there are no elements.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 removeAt:}\
+\pard\li2500
+-{\b removeAt}:(unsigned ){\i anOffset}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes the object at {\i anOffset}.  When an object is removed, the remaining elements are adjusted so that there are no {\b nil} entries between the first and last element.  This adjustment shrinks the collection and changes the offset of the entries.  Returns the object removed.{\fs16 \
+}{\fs16 \
+}{\b\f1 Note:} Method name for ICpak101 compatibility.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 removeAtIndex:}\
+\pard\li2500
+-{\b removeAtIndex}:(unsigned ){\i anOffset}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Same as {\f2 removeAt:}.  Method name for Smalltalk compatibility.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 remove:}\
+\pard\li2500
+-{\b remove}:{\i oldObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes {\i oldObject} from the collection if {\i oldObject} is found, and returns {\i oldObject}.  Otherwise returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\b\f1 Note:} The {\f2 remove:} method of the OrdCltn class is implemented to remove an exact match.  The Set class uses a match in the sense of {\f2 isEqual:} instead. {\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 remove:ifAbsent:}\
+\pard\li2500
+-{\b remove}:{\i oldObject}{\b ifAbsent}:{\i exceptionBlock}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Removes {\i oldObject} from the collection if {\i oldObject} is found, and returns {\i oldObject}.  Otherwise evaluates {\i exceptionBlock} and returns its return value.  For example, the method {\f2 remove:} is equivalent to the following :{\fs16 \
+}{\fs16 \
+}\pard\li2800
+{\f2\fs24 [ aCltn remove: oldObject ifAbsent: \{ nil \} ];\
+}{\fs16 \
+}\pard\li2200
+{\b\f1 Note:} The {\f2 remove:} method of the OrdCltn class is implemented to remove an exact match.  The Set class uses a match in the sense of {\f2 isEqual:} instead. {\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 do:}\
+\pard\li2500
+-{\b do}:{\i aBlock}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Evaluates {\i aBlock} for each element in the collection and returns {\b self}.  {\i aBlock} must be a block taking one object (element) as argument; the return value of the block is ignored by this method.{\fs16 \
+}{\fs16 \
+}Often, the Block would, as a side-effect, modify a variable, as in:{\fs16 \
+}{\fs16 \
+}\pard\li2800
+{\f2\fs24 int count = 0;\
+}{\f2\fs24 [contents do: \{ :what | if (what == anObject) count++; \}];\
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b\f1 do:until:}\
+\pard\li2500
+-{\b do}:{\i aBlock}{\b until}:(BOOL*){\i flag}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Evaluates {\i aBlock} for each element in the collection, or until the variable pointed to by {\i flag} becomes true, and returns {\b self}.  {\i aBlock} must be a block taking one object (element) as argument; the return value of the block is ignored by this method.{\fs16 \
+}{\fs16 \
+}Typically the Block will modify the variable {\i flag} when some condition holds:{\fs16 \
+}{\fs16 \
+}\pard\li2800
+{\f2\fs24 BOOL found = NO;\
+}{\f2\fs24 [contents do:\{ :what | if (what == findObject) found=YES;\} until:&found];\
+}{\f2\fs24 if (found) \{ ... \}\
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+{\b\f1 reverseDo:}\
+\pard\li2500
+-{\b reverseDo}:{\i aBlock}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Like {\f2 do:} but specific to {\b OrdCltn} : works from the element at the last offset towards the element at offset 0.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 find:}\
+\pard\li2500
+-{\b find}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the first member which is the same as {\i anObject}, i.e., which is pointer equal.  If none is found, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 findMatching:}\
+\pard\li2500
+-{\b findMatching}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the first member which matches {\i anObject}, i.e., using {\f2 isEqual:} for comparison.  If none is found, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 includes:}\
+\pard\li2500
+- (BOOL){\b includes}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+This method returns YES if {\i anObject} is in the collection (in the sense of {\f2 isEqual:}).  It has therefore the same semantics as {\f2 includes:} of the {\b Set} class.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 findSTR:}\
+\pard\li2500
+-{\b findSTR}:(STR ){\i aString}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns the first member whose string contents matches {\i aString}, using the {\f2 isEqualSTR:} method for comparison.  If none is found, returns {\b nil}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 contains:}\
+\pard\li2500
+- (BOOL){\b contains}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Returns YES if the receiver contains {\i anObject}.  Otherwise, returns NO.  Implementation is in terms of the receiver's {\f2 find:} method (which uses {\f2 isSame}, not {\f2 isEqual:}).{\fs16 \
+}{\fs16 \
+}{\b\f1 Note:} To get the behavior of the method {\f2 contains:} of the Set class (which uses {\f2 isEqual:}), use {\f2 findMatching:} or {\f2 includes:}.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 offsetOf:}\
+\pard\li2500
+- (unsigned){\b offsetOf}:{\i anObject}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Searches for {\i anObject} in the contents and returns the offset of the {\b first} pointer equal object it finds.  Otherwise, returns (unsigned)-1.  If {\i anObject} is {\b nil}, also returns (unsigned)-1.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 printOn:}\
+\pard\li2500
+-{\b printOn}:(IOD){\i aFile}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Prints a list of the objects in the objects by sending each individual object a {\f2 printOn:} message.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 fileOutOn:}\
+\pard\li2500
+-{\b fileOutOn}:{\i aFiler}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Writes the collection on {\i aFiler}.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\b\f1 fileInFrom:}\
+\pard\li2500
+-{\b fileInFrom}:{\i aFiler}{\fs16 \
+}{\fs16 \
+}\pard\li2200
+Reads a string object from {\i aFiler}.  Returns the receiver.{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}{\fs16 \
+}}
+

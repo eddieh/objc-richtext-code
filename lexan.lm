@@ -1,0 +1,209 @@
+
+%{
+/*
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published 
+ * by the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <Object.h>
+#include <ocstring.h>
+#include "lexan.h"
+#include "state.h"
+#include "style.h"
+#include "richfont.h"
+#include "richtext.h"
+#include <assert.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define YY_NEVER_INTERACTIVE 1
+
+int lineno;
+id curstate;
+id lexanerrmsg;
+
+#if 0
+static int argOf(char *x,int n)
+{
+  if (!strstr(yytext,x)) { fprintf(stderr,"no %s in %s\n",yytext,x); abort(); }
+  if (strlen(x) != n) { fprintf(stderr,"strlen(%s) error\n",x); abort(); }
+  return atoi(yytext + n + 1);
+}
+#else
+#define argOf(x,n) (atoi(yytext + n + 1))
+#endif
+
+static int ashexchar(char *x)
+{
+  return strtol(x,NULL,16);
+}
+
+%}
+
+OPTARG ([-]?[0-9]*[ ]?)
+HEX ([0-9a-f])
+
+%%
+
+\\rtf{OPTARG} { return RTFWORD; }
+
+\\\\ { [curstate addchars:"\\"]; }
+\\~  { [curstate addchars:" "]; }
+\\\{ { [curstate addchars:"{"]; }
+\\\} { [curstate addchars:"}"]; }
+\\\- { [curstate addchars:"-"]; }
+\\_  { [curstate addchars:"-"]; }
+
+\\\'{HEX}{HEX} { [curstate addch:ashexchar(yytext+2)]; } 
+
+\\b[ ]?     { [curstate setboldface:YES]; }
+\\b{OPTARG} { [curstate setboldface:argOf("b",1)]; }
+\\i[ ]?  { [curstate setitalic:YES]; }
+\\i{OPTARG} { [curstate setitalic:argOf("i",1)]; }
+\\ul[ ]? { [curstate setunderlined:YES]; }
+\\ul{OPTARG} { [curstate setunderlined:argOf("ul",2)]; }
+\\ulnone{OPTARG} { [curstate setunderlined:NO]; }
+\\fs{OPTARG} { [curstate setfontsize:argOf("fs",2)]; }
+\\cf{OPTARG} { [curstate setforecolor:argOf("cf",2)]; }
+\\cb{OPTARG} { [curstate setbackcolor:argOf("cb",2)]; }
+
+\\\* { [curstate setdestination:DIGNORE]; }
+\\fonttbl{OPTARG} { [curstate setdestination:DFNTABLE]; }
+\\filetbl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\file{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\colortbl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\stylesheet{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\info{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\header{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\headerl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\headerr{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\headerf{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\footer{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\footerl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\footerr{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\footerf{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\footnote{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\pict{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\revtbl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\title{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\subject{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\author{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\operator{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\keywords{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\comment{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\doccomm{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\nextfile{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\template{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\ftnsepb{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\ftnsepc{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\ftncn{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\aftnsep{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\aftnsepc{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\aftncn{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\pn{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\pnseclvl{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\pntxta{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\pntxtb{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\objclass{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\objname{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\objdata{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\objalias{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\objsect{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\result{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\do{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\fldinst{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\fldrslt{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\txe{OPTARG} { [curstate setdestination:DIGNORE]; }
+\\rxe{OPTARG} { [curstate setdestination:DIGNORE]; }
+
+\\\n { [curstate newparagraph]; }
+\\line{OPTARG} { [curstate newparagraph]; }
+\\page{OPTARG} { [curstate newparagraph]; }
+\\row{OPTARG} { [curstate newparagraph]; }
+\\par{OPTARG} { [curstate newparagraph]; }
+\\pard{OPTARG} { [curstate pardefaults]; }
+\\plain{OPTARG} { [curstate chardefaults]; }
+
+\\cell{OPTARG} { [curstate addchars:" "]; }
+\\tab{OPTARG} { [curstate addchars:"\t"]; }
+\\emdash{OPTARG} { [curstate addchars:"-"]; }
+\\endash{OPTARG} { [curstate addchars:"-"]; }
+\\bullet{OPTARG} { [curstate addchars:"*"]; }
+\\lquote{OPTARG} { [curstate addchars:"'"]; }
+\\rquote{OPTARG} { [curstate addchars:"'"]; }
+\\ldblquote{OPTARG} { [curstate addchars:"\""]; }
+\\rdblquote{OPTARG} { [curstate addchars:"\""]; }
+
+\\ansi{OPTARG} { [[curstate richtext] setcharacterset:CSANSI]; }
+\\mac{OPTARG} { [[curstate richtext] setcharacterset:CSMAC]; }
+\\pc{OPTARG} { [[curstate richtext] setcharacterset:CSPC]; }
+\\pca{OPTARG} { [[curstate richtext] setcharacterset:CSPCA]; }
+\\deff{OPTARG} { [[curstate richtext] setdefaultfont:argOf("deff",4)]; }
+
+\\f{OPTARG} { [curstate setfontnum:argOf("f",1)]; }
+\\fnil{OPTARG} { [curstate setfontfamily:FFDEFAULT]; }
+\\froman{OPTARG} { [curstate setfontfamily:FFROMAN]; }
+\\fswiss{OPTARG} { [curstate setfontfamily:FFSWISS]; }
+\\fmodern{OPTARG} { [curstate setfontfamily:FFMODERN]; }
+\\fscript{OPTARG} { [curstate setfontfamily:FFDEFAULT]; }
+\\fdecor{OPTARG} { [curstate setfontfamily:FFDEFAULT]; }
+\\ftech{OPTARG} { [curstate setfontfamily:FFDEFAULT]; }
+\\fbidi{OPTARG} { [curstate setfontfamily:FFDEFAULT]; }
+
+
+\\paperw{OPTARG} { [[curstate richtext] setpaperw:argOf("paperw",6)]; }
+\\paperh{OPTARG} { [[curstate richtext] setpaperh:argOf("paperh",6)]; }
+\\margl{OPTARG} { [[curstate richtext] setmargleft:argOf("margl",5)]; }
+\\margr{OPTARG} { [[curstate richtext] setmargright:argOf("margr",5)]; }
+\\margt{OPTARG} { [[curstate richtext] setmargtop:argOf("margl",5)]; }
+\\margb{OPTARG} { [[curstate richtext] setmargbottom:argOf("margb",5)]; }
+
+\\fi{OPTARG} { [[curstate textStyle] setfirstindent:argOf("fi",2)]; }
+\\li{OPTARG} { [[curstate textStyle] setleftindent:argOf("li",2)]; }
+\\ri{OPTARG} { [[curstate textStyle] setleftindent:argOf("ri",2)]; }
+
+\\tx{OPTARG} { [[curstate textStyle] settab:argOf("tx",2)]; }
+
+\\ql{OPTARG} { [[curstate textStyle] setalign:ALGNLEFT]; }
+\\qr{OPTARG} { [[curstate textStyle] setalign:ALGNRIGHT]; }
+\\qj{OPTARG} { [[curstate textStyle] setalign:ALGNJUST]; }
+\\qc{OPTARG} { [[curstate textStyle] setalign:ALGNCENTER]; }
+
+\\sa{OPTARG} { [[curstate textStyle] setspaceafter:argOf("sa",2)]; }
+\\sb{OPTARG} { [[curstate textStyle] setspacebefore:argOf("sb",2)]; }
+\\sl{OPTARG} { [[curstate textStyle] setspaceline:argOf("sl",2)]; }
+
+\\[a-z]+{OPTARG} { ; }
+
+\{ { return OPENGR; }
+\} { return CLOSEGR; }
+\n { lineno++; }
+
+\\\' {
+   char *msg = "Expected hexadecimal constant (\\\'hh) at line %d";
+   lexanerrmsg = [String sprintf:msg,lineno];
+   return PANICS;
+}
+\\ {
+  char *msg = "Backslash followed by EOF at line %d";
+  lexanerrmsg = [String sprintf:msg,lineno];
+  return PANICS;
+}
+
+[^{}\\\n]+ { [curstate addchars:yytext count:yyleng]; }
+
+%%
+
+int yywrap() { return 1; }
+
